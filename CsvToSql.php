@@ -5,6 +5,9 @@ namespace AnthonyBocci\Convert;
 /**
  * @class CsvToSql
  * Convert a CSV file to SQL statements
+ * Usage:
+ * $converter = new AnthonyBocci\Convert\CsvToSql("csvFile.csv", "fileToWrite.sql", "tableName");
+ * $converter->toInsert([0, 1, 2, 3]); //Creates file with columns 0, 1, 2 and 3.
  */
 class CsvToSql
 {
