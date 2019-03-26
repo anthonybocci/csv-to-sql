@@ -1,0 +1,14 @@
+{
+    "name": "anthonybocci/csv-to-sql",
+    "description": "An utility tool to convert a CSV file to an SQL script.",
+    "type": "library",
+    "license": "GPLV3",
+    "authors": [
+        {
+            "name": "Anthony Bocci",
+            "email": "boccianthony@yahoo.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
