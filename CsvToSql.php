@@ -3,54 +3,57 @@
 namespace AnthonyBocci\Convert;
 
 /**
- * @class CsvToSql
  * Convert a CSV file to SQL statements
- * Usage:
- * $converter = new AnthonyBocci\Convert\CsvToSql("csvFile.csv", "fileToWrite.sql", "tableName");
- * $converter->toInsert([0, 1, 2, 3]); //Creates file with columns 0, 1, 2 and 3.
  */
 class CsvToSql
 {
     /**
      * CSV file's name to read
+     *
      * @var string
      */
     private $csvFile;
     /**
      * SQL file's name to write
+     *
      * @var string
      */
     private $sqlFile;
     /**
      * Table to write
+     *
      * @var string
      */
     private $tableName;
     /**
      * CSV file content
+     *
      * @var string
      */
     private $csvContent;
     /**
      * String separator between cells
+     *
      * @var string
      */
     private $separator;
     /**
      * Insert statement
+     *
      * @var string
      */
     const INSERT = 'INSERT INTO %1$s VALUES %2$s';
 
     /**
      * Constructor
+     *
      * @param string $csvFile   CSV file to read
-     * @param string $sqlFile   SQL file to write
      * @param string $tableName Table to write
+     * @param string $sqlFile   SQL file to write
      * @param string $separator Separator between cells
      * @param bool $read Should it read CSV file content ?
      */
-    public function __construct($csvFile, $sqlFile, $tableName, $separator = ";", $read = true)
+    public function __construct($csvFile, $tableName, $sqlFile = null, $separator = ";", $read = true)
     {
         $this->csvFile = $csvFile;
         $this->sqlFile = !empty($sqlFile) ? $sqlFile : "out.sql";
@@ -77,12 +80,15 @@ class CsvToSql
 
     /**
      * Convert the CSV file content into SQL insert statement
-     * @param  array  $columnList An array that contains columns number to get.
+     *
+     * @param   array  $columnList An array that contains columns number to get.
      * Columns begin from 0.
-     * @param  integer $firstLine  The first line to use. Lines begin from 0.
+     * @param   string $newline The newline character.
+     * @param   integer $firstLine  The first line to use. Lines begin from 0.
+     *
      * @return string              The sql statement
      */
-    public function toInsert($columnList, $writeFile = true, $firstLine = 1)
+    public function toInsert($columnList, $writeFile = true, $newline = "\r\n", $firstLine = 1)
     {
         //$columnList must be an array
         if (false === is_array($columnList)) {
@@ -94,7 +100,7 @@ class CsvToSql
         }
         //Explode file to get lines
         $result = "";
-        $lines = explode("\r\n", $this->csvContent);
+        $lines = explode($newline, $this->csvContent);
         //Look over every line
         for ($i = $firstLine; $i < count($lines); $i ++) {
             //Explode to get every cell
